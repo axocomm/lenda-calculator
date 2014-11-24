@@ -6,3 +6,8 @@ body {
   max-width: 700px;
   margin: 0 auto;
 }
+
+#current-form form .submit-container,
+#compare-forms form .submit-container {
+  text-align: center;
+}
