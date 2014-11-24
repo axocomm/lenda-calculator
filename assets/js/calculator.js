@@ -60,6 +60,7 @@ function getResults(currentDetails) {
     };
 
     for (var c in results) {
+        interestRate = results[c].rate / 100;
         newPayment = calculateNewPayment(loanAmount, interestRate, term);
         totalSavings = 0;
         results[c].newPayment = newPayment;
