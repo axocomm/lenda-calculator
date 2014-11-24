@@ -46,11 +46,35 @@ function populateExample(example) {
  */
 function updateResultForms(currentDetails) {
     var term = currentDetails.newTerm;
-    var lendaResult = getLendaResult(term);
-    var quickenResult = getQuickenResult(term);
-    var wellsFargoResult = getWellsFargoResult(term);
 
-    console.log([lendaResult, quickenResult, wellsFargoResult]);
+    var results = {
+        'lenda': getLendaResult(term),
+        'quicken': getQuickenResult(term),
+        'wells-fargo': getWellsFargoResult(term)
+    };
+
+    var selector;
+    for (var c in results) {
+        selector = '#compare-' + c + '-form';
+        updateResultForm(selector, results[c]);
+    }
+}
+
+/**
+ * Update the result form.
+ *
+ * @param {string} selector the form selector
+ * @param {object} result the result
+ */
+function updateResultForm(selector, result) {
+    var inputs = {
+        'new-interest-rate': result.rate,
+        'closing-costs': result.cost
+    };
+
+    for (var id in inputs) {
+        $(selector + ' #' + id).val(inputs[id]);
+    }
 }
 
 /**
