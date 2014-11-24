@@ -40,18 +40,42 @@ function populateExample(example) {
 }
 
 /**
- * Update the result forms.
+ * Get the results from the APIs.
  *
- * @param {object} currentDetails the current details
+ * @param {number} term the new term
+ *
+ * @return {object} the results for each API
  */
-function updateResultForms(currentDetails) {
+function getResults(currentDetails) {
     var term = currentDetails.newTerm;
+    var loanAmount = currentDetails.loanAmount;
+    var interestRate;
+    var newPayment;
+    var totalSavings;
 
     var results = {
         'lenda': getLendaResult(term),
         'quicken': getQuickenResult(term),
         'wells-fargo': getWellsFargoResult(term)
     };
+
+    for (var c in results) {
+        newPayment = calculateNewPayment(loanAmount, interestRate, term);
+        totalSavings = 0;
+        results[c].newPayment = newPayment;
+        results[c].totalSavings = totalSavings;
+    }
+
+    return results;
+}
+
+/**
+ * Update the result forms.
+ *
+ * @param {object} currentDetails the current details
+ */
+function updateResultForms(currentDetails) {
+    var results = getResults(currentDetails);
 
     var selector;
     for (var c in results) {
@@ -69,7 +93,9 @@ function updateResultForms(currentDetails) {
 function updateResultForm(selector, result) {
     var inputs = {
         'new-interest-rate': result.rate,
-        'closing-costs': result.cost
+        'closing-costs': result.cost,
+        'new-monthly-payment': result.newPayment,
+        'total-savings': result.totalSavings
     };
 
     for (var id in inputs) {
