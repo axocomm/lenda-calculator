@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Mortgage Savings Calculator</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href=".">Mortgage Calculator</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container" id="main">
+      <div id="current-form">
+        <form class="form-horizontal">
+          <fieldset>
+            <legend>Current</legend>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="current-monthly-payment">Current Monthly Payment</label>
+              <div class="col-md-2">
+                <input id="current-monthly-payment" name="current-monthly-payment" type="text" placeholder="$0.00" class="form-control input-md" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="current-interest-rate">Current Interest Rate</label>
+              <div class="col-md-2">
+                <input id="current-interest-rate" name="current-interest-rate" type="text" placeholder="0.00%" class="form-control input-md" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="remaining-term">Time Remaining on Current Loan</label>
+              <div class="col-md-4">
+                <input id="remaining-years" name="remaining-years" type="number" placeholder="0 years" class="form-control input-md" required>
+              </div>
+              <div class="col-md-4">
+                <input id="remaining-months" name="remaining-months" type="number" placeholder="0 months" class="form-control input-md" required>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 control-label" for="remaining-balance">Remaining Balance on Mortgage</label>
+              <div class="col-md-4">
+                <input id="remaining-balance" name="remaining-balance" type="text" placeholder="$0.00" class="form-control input-md" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="new-loan-terms">New Loan Terms</label>
+              <div class="col-md-4">
+                <select id="new-loan-terms" name="new-loan-terms" class="form-control">
+                  <option value="10">10 years</option>
+                  <option value="15">15 years</option>
+                  <option value="20">20 years</option>
+                  <option value="30">30 years</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Compare Savings</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <script src="assets/js/bootstrap.min.js"></script>
+  </body>
+</html>
