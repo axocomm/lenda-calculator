@@ -45,7 +45,65 @@ function populateExample(example) {
  * @param {object} currentDetails the current details
  */
 function updateResultForms(currentDetails) {
-    ;
+    var term = currentDetails.newTerm;
+    var lendaResult = getLendaResult(term);
+    var quickenResult = getQuickenResult(term);
+    var wellsFargoResult = getWellsFargoResult(term);
+
+    console.log([lendaResult, quickenResult, wellsFargoResult]);
+}
+
+/**
+ * Get the Lenda result.
+ *
+ * @param {number} term the new term
+ *
+ * @return {object} the result using the Lenda API, undefined if it
+ *     does not exist
+ */
+function getLendaResult(term) {
+    var lendaApi = new LendaAPI();
+    try {
+        return lendaApi.getRateAndCostForTerm(term)
+    } catch (e) {
+        return undefined;
+    }
+}
+
+/**
+ * Get the Quicken result.
+ *
+ * @param {number} term the new term
+ *
+ * @return {object} the result using the Quicken API, undefined if it
+ *     does not exist
+ */
+function getQuickenResult(term) {
+    var rates = getQuickenRates();
+    rates = rates.filter(function (rate) {
+        return rate.term === term;
+    });
+
+    return rates[0];
+}
+
+/**
+ * Get the Wells Fargo result.
+ *
+ * @param {number} term the new term
+ *
+ * @return {object} the result using the Wells Fargo API, undefined if it
+ *     does not exist
+ */
+function getWellsFargoResult(term) {
+    var wellsFargoApi = new WellsFargoAPI();
+    var rates = wellsFargoApi.getRatesAndCost().rates;
+
+    rates = rates.filter(function (rate) {
+        return rate.term === term;
+    });
+
+    return rates[0];
 }
 
 /**
