@@ -49,9 +49,10 @@ function populateExample(example) {
 function getResults(currentDetails) {
     var term = currentDetails.newTerm;
     var loanAmount = currentDetails.loanAmount;
-    var interestRate;
-    var newPayment;
-    var totalSavings;
+    var monthsRemaining = currentDetails.monthsRemaining;
+    var currentPayment = currentDetails.currentMonthlyPayment;
+
+    var interestRate, newPayment, totalSavings, closingCosts;
 
     var results = {
         'lenda': getLendaResult(term),
@@ -61,8 +62,12 @@ function getResults(currentDetails) {
 
     for (var c in results) {
         interestRate = results[c].rate / 100;
+        closingCosts = results[c].cost;
+
         newPayment = calculateNewPayment(loanAmount, interestRate, term);
-        totalSavings = 0;
+        totalSavings = calculateTotalSavings(currentPayment, newPayment,
+                                             monthsRemaining, closingCosts);
+
         results[c].newPayment = newPayment;
         results[c].totalSavings = totalSavings;
     }
@@ -196,4 +201,9 @@ function calculateNewPayment(loanAmount, interestRate, newTerm) {
     return loanAmount *
         (monthlyInterest * Math.pow(1 + monthlyInterest, months)) /
         (Math.pow(1 + monthlyInterest, months) - 1);
+}
+
+function calculateTotalSavings(currentMonthlyPayment, newMonthlyPayment,
+                               totalPayments, closingCosts) {
+    return currentMonthlyPayment * totalPayments - newMonthlyPayment * totalPayments - closingCosts;
 }
