@@ -27,13 +27,13 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="current-monthly-payment">Current Monthly Payment</label>
               <div class="col-md-2">
-                <input id="current-monthly-payment" name="current-monthly-payment" type="text" placeholder="$0.00" class="form-control input-md" required>
+                <input id="current-monthly-payment" name="current-monthly-payment" type="text" placeholder="$0.00" class="form-control input-md" data-value-type="money" data-value-precision="2" required>
               </div>
             </div>
             <div class="form-group">
               <label class="col-md-4 control-label" for="current-interest-rate">Current Interest Rate</label>
               <div class="col-md-2">
-                <input id="current-interest-rate" name="current-interest-rate" type="text" placeholder="0.00%" class="form-control input-md" required>
+                <input id="current-interest-rate" name="current-interest-rate" type="text" placeholder="0.00%" class="form-control input-md input-percentage" data-value-type="percentage" data-precision="4" required>
               </div>
             </div>
             <div class="form-group">
@@ -48,7 +48,7 @@
             <div class="form-group row">
               <label class="col-md-4 control-label" for="remaining-balance">Remaining Balance on Mortgage</label>
               <div class="col-md-4">
-                <input id="remaining-balance" name="remaining-balance" type="text" placeholder="$0.00" class="form-control input-md" required>
+                <input id="remaining-balance" name="remaining-balance" type="text" placeholder="$0.00" class="form-control input-md" data-value-type="money" data-value-precision="2" required>
               </div>
             </div>
             <div class="form-group">

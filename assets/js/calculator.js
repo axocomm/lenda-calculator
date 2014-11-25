@@ -11,6 +11,14 @@ $(document).ready(function () {
 
     populateExample(ex);
 
+    $('form input').filter(function () {
+        return $(this).attr('data-value-type');
+    }).on('change', function (e) {
+        updateInputUnit($(this));
+    }).each(function () {
+        updateInputUnit($(this));
+    });
+
     $('#current-form').on('submit', function (e) {
         e.preventDefault();
         var currentDetails = getCurrentDetails($('#current-form fieldset')
@@ -18,6 +26,34 @@ $(document).ready(function () {
         updateResultForms(currentDetails);
     });
 });
+
+function updateInputUnit(element) {
+    var valueType = element.data('value-type').toLowerCase();
+    var val = parseFloat(element.val().replace(/[^0-9.]/, ''));
+
+    switch (valueType) {
+    case 'money':
+        var precision = element.data('value-precision') || -1;
+        if (precision >= 0) {
+            val = val.toFixed(precision);
+        }
+
+        val = '$' + val;
+        break;
+    case 'percentage':
+        var precision = element.data('value-precision') || -1;
+        if (precision >= 0) {
+            val = val.toFixed(precision);
+        }
+
+        val = val + '%';
+        break;
+    default:
+        break;
+    }
+
+    element.val(val);
+}
 
 /**
  * Populate the current form for example data.
@@ -205,5 +241,6 @@ function calculateNewPayment(loanAmount, interestRate, newTerm) {
 
 function calculateTotalSavings(currentMonthlyPayment, newMonthlyPayment,
                                totalPayments, closingCosts) {
-    return currentMonthlyPayment * totalPayments - newMonthlyPayment * totalPayments - closingCosts;
+    return currentMonthlyPayment * totalPayments - newMonthlyPayment *
+        totalPayments - closingCosts;
 }
