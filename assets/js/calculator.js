@@ -98,14 +98,48 @@ function updateResultForms(currentDetails) {
  */
 function updateResultForm(selector, result) {
     var inputs = {
-        'new-interest-rate': result.rate,
-        'closing-costs': result.cost,
-        'new-monthly-payment': result.newPayment,
-        'total-savings': result.totalSavings
+        'new-interest-rate': {
+            value: result.rate,
+            type: 'percentage'
+        },
+        'closing-costs': {
+            value: result.cost,
+            type: 'money'
+        },
+        'new-monthly-payment': {
+            value: result.newPayment,
+            type: 'money'
+        },
+        'total-savings': {
+            value:  result.totalSavings,
+            type: 'money'
+        }
     };
 
+    var value, type;
     for (var id in inputs) {
-        $(selector + ' #' + id).val(inputs[id]);
+        value = inputs[id].value;
+        type = inputs[id].type;
+        $(selector + ' #' + id).val(formatDisplayValue(value, type));
+    }
+}
+
+/**
+ * Format the value for display.
+ *
+ * @param {number} value the value
+ * @param {string} type the value type
+ *
+ * @return {mixed} a formatted value
+ */
+function formatDisplayValue(value, type) {
+    switch (type.toLowerCase()) {
+    case 'percentage':
+        return value.toFixed(3) + '%';
+    case 'money':
+        return '$' + value.toFixed(2);
+    default:
+        return value;
     }
 }
 
@@ -203,7 +237,18 @@ function calculateNewPayment(loanAmount, interestRate, newTerm) {
         (Math.pow(1 + monthlyInterest, months) - 1);
 }
 
+/**
+ * Calculate the total savings.
+ *
+ * @param {number} currentMonthlyPayment the current monthly payment
+ * @param {number} newMonthlyPayment the new monthly payment
+ * @param {number} totalPayments the total number of payments
+ * @param {number} closingCosts the closing costs
+ *
+ * @return {number} the total savings
+ */
 function calculateTotalSavings(currentMonthlyPayment, newMonthlyPayment,
                                totalPayments, closingCosts) {
-    return currentMonthlyPayment * totalPayments - newMonthlyPayment * totalPayments - closingCosts;
+    return currentMonthlyPayment * totalPayments - newMonthlyPayment *
+        totalPayments - closingCosts;
 }
