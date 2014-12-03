@@ -1,3 +1,54 @@
+var ex = {
+    currentMonthlyPayment: 976,
+    currentInterestRate: 0.04075,
+    loanAmount: 273224,
+    monthsRemaining: 20,
+    newTerm: 10
+};
+
+var testValues = [
+    {
+        term: 10,
+        lendaRate: 3.900,
+        lendaClosingCosts: 0,
+        lendaNewPayment: 2753.29,
+        wellsFargoRate: 4.125,
+        wellsFargoClosingCosts: 1275.00,
+        quickenRate: 4.075,
+        quickenClosingCosts: 950.00,
+    },
+    {
+        term: 15,
+        lendaRate: 4.000,
+        lendaClosingCosts: 0,
+        lendaNewPayment: 2021.00,
+        wellsFargoRate: 4.275,
+        wellsFargoClosingCosts: 1375.00,
+        quickenRate: 4.130,
+        quickenClosingCosts: 1000.00
+    },
+    {
+        term: 20,
+        lendaRate: 4.100,
+        lendaClosingCosts: 0,
+        lendaNewPayment: 1670.12,
+        wellsFargoRate: 4.391,
+        wellsFargoClosingCosts: 1475.00,
+        quickenRate: 4.223,
+        quickenClosingCosts: 1050.00
+    },
+    {
+        term: 30,
+        lendaRate: 4.200,
+        lendaClosingCosts: 0,
+        lendaNewPayment: 1336.11,
+        wellsFargoRate: 4.411,
+        wellsFargoClosingCosts: 1575.00,
+        quickenRate: 4.397,
+        quickenClosingCosts: 1100.00
+    }
+];
+
 describe('Display value formatting', function () {
     it('should format a percentage', function () {
         expect(formatDisplayValue(100, 'percentage')).toBe('100.000%');
@@ -13,52 +64,10 @@ describe('Display value formatting', function () {
 });
 
 describe('API results', function () {
-    var testValues = [
-        {
-            term: 10,
-            lendaRate: 3.900,
-            lendaClosingCosts: 0,
-            wellsFargoRate: 4.125,
-            wellsFargoClosingCosts: 1275.00,
-            quickenRate: 4.075,
-            quickenClosingCosts: 950.00
-        },
-        {
-            term: 15,
-            lendaRate: 4.000,
-            lendaClosingCosts: 0,
-            wellsFargoRate: 4.275,
-            wellsFargoClosingCosts: 1375.00,
-            quickenRate: 4.130,
-            quickenClosingCosts: 1000.00
-        },
-        {
-            term: 20,
-            lendaRate: 4.100,
-            lendaClosingCosts: 0,
-            wellsFargoRate: 4.391,
-            wellsFargoClosingCosts: 1475.00,
-            quickenRate: 4.223,
-            quickenClosingCosts: 1050.00
-
-        },
-        {
-            term: 30,
-            lendaRate: 4.200,
-            lendaClosingCosts: 0,
-            wellsFargoRate: 4.411,
-            wellsFargoClosingCosts: 1575.00,
-            quickenRate: 4.397,
-            quickenClosingCosts: 1100.00
-        }
-    ];
-
-
     testValues.forEach(function (test) {
         var lendaResult, wellsFargoResult, quickenResult;
 
         lendaResult = getLendaResult(test.term);
-        console.log(lendaResult, test.lendaRate);
         wellsFargoResult = getWellsFargoResult(test.term);
         quickenResult = getQuickenResult(test.term);
 
@@ -86,4 +95,7 @@ describe('API results', function () {
             expect(quickenResult.cost).toEqual(test.quickenClosingCosts);
         });
     });
+});
+
+describe('New payment and savings calculation', function () {
 });
