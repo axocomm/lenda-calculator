@@ -4,25 +4,15 @@
     <meta charset="utf-8">
     <title>Jasmine Tests</title>
     <link rel="stylesheet" href="assets/css/jasmine.css">
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jasmine.js"></script>
     <script src="assets/js/jasmine-html.js"></script>
     <script src="assets/js/boot.js"></script>
+    <script src="assets/js/lenda.js"></script>
+    <script src="assets/js/quicken.js"></script>
+    <script src="assets/js/wellsfargo.js"></script>
     <script src="assets/js/calculator.js"></script>
-    <script>
-     describe('Display value formatting', function () {
-       it('should format a percentage', function () {
-         expect(formatDisplayValue(100, 'percentage')).toBe('100.000%');
-       });
-
-       it('should format a dollar amount', function () {
-         expect(formatDisplayValue(200, 'money')).toBe('$200.00');
-       });
-
-       it('should return the input if the type is not recognised', function () {
-         expect(formatDisplayValue(1234, 'foo')).toBe(1234);
-       });
-     });
-    </script>
+    <script src="assets/js/tests.js"></script>
   </head>
   <body>
   </body>
