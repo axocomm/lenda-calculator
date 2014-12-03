@@ -95,31 +95,24 @@ describe('API results', function () {
 
 describe('New payment and savings calculation', function () {
     var amount = ex.loanAmount;
-    var rate = ex.rate / 100;
+    var rate = 4.075 / 100;
     var term = 10;
     var monthsRemaining = ex.monthsRemaining;
     var closingCosts = 950;
     var currentPayment = 3000;
+
+    var expectedPayment = 2776.01;
+    var expectedSavings = 3529.81;
 
     var newPayment = calculateNewPayment(amount, rate, term);
     var savings = calculateTotalSavings(currentPayment, newPayment,
                                         monthsRemaining, closingCosts);
 
     it('should calculate new payment using the right formula', function () {
-        expect(newPayment.toFixed(2)).toEqual((function () {
-            var months = 12 * term;
-            var monthlyInterest = rate / 12;
-
-            return amount *
-                (monthlyInterest * Math.pow(1 + monthlyInterest, months)) /
-                (Math.pow(1 + monthlyInterest, months) - 1);
-        }()).toFixed(2));
+        expect(newPayment.toFixed(2)).toEqual(expectedPayment.toFixed(2));
     });
 
     it('should calculate savings using the right formula', function () {
-        expect(savings.toFixed(2)).toEqual((function () {
-            return currentPayment * monthsRemaining - newPayment *
-                monthsRemaining - closingCosts;
-        }()).toFixed(2));
+        expect(savings.toFixed(2)).toEqual(expectedSavings.toFixed(2));
     });
 });
