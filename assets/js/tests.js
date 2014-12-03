@@ -91,6 +91,12 @@ describe('API results', function () {
             expect(quickenResult.cost).toEqual(test.quickenClosingCosts);
         });
     });
+
+    it('should return undefined for invalid terms', function () {
+        expect(getLendaResult(1234)).toBe(undefined);
+        expect(getQuickenResult(1234)).toBe(undefined);
+        expect(getWellsFargoResult(1234)).toBe(undefined);
+    })
 });
 
 describe('New payment and savings calculation', function () {
