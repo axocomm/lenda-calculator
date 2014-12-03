@@ -11,7 +11,6 @@ var testValues = [
         term: 10,
         lendaRate: 3.900,
         lendaClosingCosts: 0,
-        lendaNewPayment: 2753.29,
         wellsFargoRate: 4.125,
         wellsFargoClosingCosts: 1275.00,
         quickenRate: 4.075,
@@ -21,7 +20,6 @@ var testValues = [
         term: 15,
         lendaRate: 4.000,
         lendaClosingCosts: 0,
-        lendaNewPayment: 2021.00,
         wellsFargoRate: 4.275,
         wellsFargoClosingCosts: 1375.00,
         quickenRate: 4.130,
@@ -31,7 +29,6 @@ var testValues = [
         term: 20,
         lendaRate: 4.100,
         lendaClosingCosts: 0,
-        lendaNewPayment: 1670.12,
         wellsFargoRate: 4.391,
         wellsFargoClosingCosts: 1475.00,
         quickenRate: 4.223,
@@ -41,7 +38,6 @@ var testValues = [
         term: 30,
         lendaRate: 4.200,
         lendaClosingCosts: 0,
-        lendaNewPayment: 1336.11,
         wellsFargoRate: 4.411,
         wellsFargoClosingCosts: 1575.00,
         quickenRate: 4.397,
@@ -98,4 +94,32 @@ describe('API results', function () {
 });
 
 describe('New payment and savings calculation', function () {
+    var amount = ex.loanAmount;
+    var rate = ex.rate / 100;
+    var term = 10;
+    var monthsRemaining = ex.monthsRemaining;
+    var closingCosts = 950;
+    var currentPayment = 3000;
+
+    var newPayment = calculateNewPayment(amount, rate, term);
+    var savings = calculateTotalSavings(currentPayment, newPayment,
+                                        monthsRemaining, closingCosts);
+
+    it('should calculate new payment using the right formula', function () {
+        expect(newPayment.toFixed(2)).toEqual((function () {
+            var months = 12 * term;
+            var monthlyInterest = rate / 12;
+
+            return amount *
+                (monthlyInterest * Math.pow(1 + monthlyInterest, months)) /
+                (Math.pow(1 + monthlyInterest, months) - 1);
+        }()).toFixed(2));
+    });
+
+    it('should calculate savings using the right formula', function () {
+        expect(savings.toFixed(2)).toEqual((function () {
+            return currentPayment * monthsRemaining - newPayment *
+                monthsRemaining - closingCosts;
+        }()).toFixed(2));
+    });
 });
