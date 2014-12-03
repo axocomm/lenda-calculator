@@ -6,6 +6,14 @@ var ex = {
     newTerm: 10
 };
 
+var currentDetails = {
+    currentMonthlyPayment: 3000,
+    currentInterestRate: 0.04215,
+    loanAmount: 273224,
+    monthsRemaining: 20,
+    newTerm: 15
+};
+
 var testValues = [
     {
         term: 10,
@@ -96,7 +104,31 @@ describe('API results', function () {
         expect(getLendaResult(1234)).toBe(undefined);
         expect(getQuickenResult(1234)).toBe(undefined);
         expect(getWellsFargoResult(1234)).toBe(undefined);
-    })
+    });
+
+    it('should contain all information', function () {
+        var results = getResults(currentDetails);
+        var apis = ['lenda', 'quicken', 'wells-fargo'];
+        var details = ['rate', 'cost', 'newPayment', 'totalSavings'];
+        var getKeys = function (o) {
+            var keys = [];
+            for (var k in o) {
+                keys.push(k);
+            }
+
+            return keys;
+        };
+
+        var allKeys = getKeys(results);
+        var resultKeys;
+        apis.forEach(function (apiName) {
+            expect(allKeys).toContain(apiName);
+            resultKeys = getKeys(results[apiName]);
+            details.forEach(function (detail) {
+                expect(resultKeys).toContain(detail);
+            });
+        });
+    });
 });
 
 describe('New payment and savings calculation', function () {
