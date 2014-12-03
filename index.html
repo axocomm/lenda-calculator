@@ -199,5 +199,55 @@
     <script src="assets/js/quicken.js"></script>
     <script src="assets/js/wellsfargo.js"></script>
     <script src="assets/js/calculator.js"></script>
+    <script src="assets/js/bootstrapValidator.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#current-form').bootstrapValidator({
+          message: 'Invalid value',
+          fields: {
+            'current-monthly-payment': {
+              validators: {
+                numeric: {
+                  separator: '.',
+                  message: 'Please enter a dollar amount'
+                }
+              }
+            },
+            'current-interest-rate': {
+              validators: {
+                numeric: {
+                  separator: '.',
+                  message: 'Please enter a percentage'
+                }
+              }
+            },
+            'remaining-years': {
+              validators: {
+                greaterThan: {
+                  value: 0,
+                  message: 'Please enter a positive number of years'
+                }
+              }
+            },
+            'remaining-months': {
+              validators: {
+                greaterThan: {
+                  value: 0,
+                  message: 'Please enter a positive number of months'
+                }
+              }
+            },
+            'remaining-balance': {
+              validators: {
+                numeric: {
+                  separator: '.',
+                  message: 'Please enter a dollar amount'
+                }
+              }
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>
