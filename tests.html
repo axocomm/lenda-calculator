@@ -7,12 +7,21 @@
     <script src="assets/js/jasmine.js"></script>
     <script src="assets/js/jasmine-html.js"></script>
     <script src="assets/js/boot.js"></script>
+    <script src="assets/js/calculator.js"></script>
     <script>
-      describe('Foo bar', function () {
-        it('does something', function () {
-          expect(true).toBe(true);
-        });
-      });
+     describe('Display value formatting', function () {
+       it('should format a percentage', function () {
+         expect(formatDisplayValue(100, 'percentage')).toBe('100.000%');
+       });
+
+       it('should format a dollar amount', function () {
+         expect(formatDisplayValue(200, 'money')).toBe('$200.00');
+       });
+
+       it('should return the input if the type is not recognised', function () {
+         expect(formatDisplayValue(1234, 'foo')).toBe(1234);
+       });
+     });
     </script>
   </head>
   <body>
