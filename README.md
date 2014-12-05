@@ -15,7 +15,7 @@ where
 - *n* is the new term of the loan, in months
 
 ### Savings
-*p<sub>c</sub>t - p<sub>n - c*
+*p<sub>c</sub>t - p<sub>n</sub> - c*
 
 where
 
